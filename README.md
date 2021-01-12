@@ -1,6 +1,6 @@
 # Performance-Oriented-DNN-MPC
 
-This repository contains code used in the paper <insert title> by <insert authors>. The full paper can be found here: <insert link>.
+This repository contains code used in the paper \<insert title\> by \<insert authors\>. The full paper can be found here: \<insert link\>.
 
 ## Overview of files
 Detailed documentation for the code can be found in the text cells of the Jupyter notebooks. Here, we provide a short overview of the files.
