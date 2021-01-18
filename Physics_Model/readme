@@ -1,1 +1,30 @@
-Contains the files to train a neural network model 
+Contains the files to train a neural network model.
+io_run.m is the matlab script that generates the identification data. Sampling time is fixed.
+It runs the BCR_Discrete_XX.m funcitons. In particular 
+
+xkplusone  = BCR_Discrete(xk,Dk,pck,ugk,Ts,fub) is the plant model that computes the future states (87)
+given past states, dilution rate Dk, CO fraction pck, and some other parameters (default are ugk=82.3, Ts=1.0h(sampling time), fub=0.9)
+
+xkplusone  = BCR_Discrete_Simulation(xk,Dk,pck,ugk,Ts,fub) is the simulation model that computes the future states (87)
+given past states, dilution rate Dk, CO fraction pck, and some other parameters (default are ugk=82.3, Ts=1.0h(sampling time), fub=0.9)
+
+bcr_model_simulation and bcr_model are the functions that are used for numerical integration from t=0 to Ts. 
+System is time invariant thus each time the BCR_Discrete_XX.m  function is called, it is integrated from 0 to Ts.
+
+Nevertheless, we do not need (or we can't measure) all 87 states. Instead we can measure 3 states. 
+So, by randomizing the inputs (Dk and pck) along Nsteps, we create data zin=(xk,uk) and zout=(xk+1)
+
+
+neural_model_identification.ipynb : Takes the 'Data.mat' file and trains a DNN to use as a predictive model. 
+What we need from this is the Wmat, i.e., the weight matrix.
+
+How to run the MPC?
+>init_cond.mat has the initial conditions for all 87 states. The BCR_Discrete is our plant model and needs all states to give the future predictions.
+>The last 3 states are biomass, acetate and ethanol which are measured. 
+>The DNN has 5 inputs (Dk,pck,biomass, acetate, ethanol) and predicts future (biomass, acetate,ethanol)
+>So you optimize for the input given the neural net model constraints (and others), apply the first input of the pred. horizon to the plant along with the 
+initial condition and predict a set of 87 states. The next step involves taking the last 3 states as new inputs to neural net, find the optimal input and iterate. 
+>In order to apply the optimal input to the plant, we need to call the BCR_Discrete from python (by installing the matlab engine) and properly save the plant 
+predictions, we can discuss the specifics
+
+See the bottom of neural_model_identification.ipynb to get an idea how the arguments to the matlab function should be passed.
