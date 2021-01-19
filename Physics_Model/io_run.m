@@ -4,12 +4,12 @@ clear all
 clearvars
 Ts = 1.0;
 close all
-Nsteps =30;
+Nsteps =40;
 D=zeros(Nsteps,1); 
 Pc = zeros(Nsteps,1);
 Ug= zeros(Nsteps,1);
 
-nsim=60;
+nsim=50;
 
 Zin = []
 Zout= []
@@ -79,7 +79,7 @@ tic
 fprintf('Sampling Step %d',j)
 [yk(j+1,:)] = BCR_Discrete(yk(j,:),D(j),Pc(j),Ug(j),Ts,fub);
 [yksim(j+1,:)] = BCR_Discrete_Simulated(yk(j,:),D(j),Pc(j),Ug(j),Ts,fub);
-Zin=[Zin ; [D(j),Pc(j),yk(j,85),yk(j,86),yk(j,87) ]];
+Zin=[Zin ; [D(j),Pc(j),yksim(j,85),yksim(j,86),yksim(j,87) ]];
 Zout=[Zout;[yksim(j,85),yksim(j,86),yksim(j,87)]];
 toc
 
@@ -126,5 +126,6 @@ hold on
 plot(n_acetate,'-o')
 legend('E','A')
 
+%save('Data.mat','Zin','Zout')
 
 

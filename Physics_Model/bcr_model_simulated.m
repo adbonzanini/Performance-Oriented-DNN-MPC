@@ -79,8 +79,8 @@ end
 
 %Some parameters
 mu_max = 9e-1; %%
-amax = 0.9; %%
-emax = 2.2; %%
+amax = 2.4; %%
+emax = 0.8; %%
 
 aco = mean(co_term);
 aco2 = mean(co2_term);

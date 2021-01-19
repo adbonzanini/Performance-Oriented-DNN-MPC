@@ -78,8 +78,8 @@ end
 
 %Some parameters
 mu_max = 2e-1;
-amax = 0.9;
-emax = 2.2;
+amax = 2.2;
+emax = 0.9;
 
 aco = mean(co_term);
 aco2 = mean(co2_term);
