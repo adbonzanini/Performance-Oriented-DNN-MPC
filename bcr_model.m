@@ -20,8 +20,8 @@ c2gi = condit(15);
 Area = condit(16);
 Qmedia = condit(17);
 D = condit(18);
-Amax = 0.15;
-Emax = 0.25;
+Amax = 0.25;
+Emax = 0.2;
 v_cm = param(1);
 Kc   = param(2);
 v_c2m = -0.6*param(3);
@@ -77,7 +77,7 @@ end
 % end
 
 %Some parameters
-mu_max = 2e-1;
+mu_max = 8e-1;
 amax = 2.2;
 emax = 0.9;
 

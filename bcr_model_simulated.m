@@ -20,12 +20,11 @@ c2gi = condit(15);
 Area = condit(16);
 Qmedia = condit(17);
 D = condit(18);
-
-Amax = 0.15;
+Amax = 0.25;
 Emax = 0.2;
 v_cm = param(1);
 Kc   = param(2);
-v_c2m = -0.1*param(3); %%
+v_c2m = -0.6*param(3);
 Kc2   = param(4);
 Kic = param(5);
 
@@ -78,16 +77,16 @@ end
 % end
 
 %Some parameters
-mu_max = 9e-1; %%
-amax = 2.4; %%
-emax = 0.8; %%
+mu_max = 8e-1;
+amax = 2.4;
+emax = 1.2;
 
 aco = mean(co_term);
 aco2 = mean(co2_term);
 avc  = mean(vc);
 avc2 = mean(vc2);
 
-mu = mu_max*aco2*aco;
+mu = mu_max*aco2*aco*ainh*einh;
 vac = amax*aco*ainh;
 vet = emax*aco*einh;
 
@@ -195,6 +194,7 @@ dy=[dy dyTmp1'];
 dX =  mu*X - D*X;
 dA =  Ma*vac*X - D*A;               
 dE =  Me*vet*X - D*E; 
+
 
 dy = [dy dX dA dE];
 

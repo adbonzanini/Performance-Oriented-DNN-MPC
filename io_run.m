@@ -65,7 +65,7 @@ for i = 1:N
     yo = [yo yz];
  end
 %y0 vector : co_g, c2_g, co_l, co2_l, biomass, ace, eth
-yo = [yo, 0.3, 0, 0];
+yo = [yo, 0.3, 0.04, 0.02];
 yk(1,:)=yo;
 yksim(1,:) = yo; 
 %=========================
@@ -78,7 +78,7 @@ Tout=j*Ts;
 tic
 fprintf('Sampling Step %d',j)
 [yk(j+1,:)] = BCR_Discrete(yk(j,:),D(j),Pc(j),Ug(j),Ts,fub);
-[yksim(j+1,:)] = BCR_Discrete_Simulated(yk(j,:),D(j),Pc(j),Ug(j),Ts,fub);
+[yksim(j+1,:)] = BCR_Discrete_Simulated(yksim(j,:),D(j),Pc(j),Ug(j),Ts,fub);
 Zin=[Zin ; [D(j),Pc(j),yksim(j,85),yksim(j,86),yksim(j,87) ]];
 Zout=[Zout;[yksim(j,85),yksim(j,86),yksim(j,87)]];
 toc
@@ -126,6 +126,7 @@ hold on
 plot(n_acetate,'-o')
 legend('E','A')
 
-%save('Data.mat','Zin','Zout')
+save('Data.mat','Zin','Zout')
+save('init_cond.mat','yo')
 
 

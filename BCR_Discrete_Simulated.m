@@ -28,7 +28,7 @@ Hc2 = 2.5e-2;                     % Henry's constant for CO2 in water, mol/L*atm
 Qmedia = L*Area*D;
 
 % Set mass transfer coefficients
-klac = 523;  %%                     % CO gas-liquid mass transfer coefficient, h-1
+klac = 523;                       % CO gas-liquid mass transfer coefficient, h-1
 klac2 = klac;                     % CO2 gas-liquid mass transfer coefficient, h-1
 
 % Calculate gas and liquid holdups
@@ -84,9 +84,9 @@ klo= 0.54;                      % O2 gas-liquid mass transfer coeff m/h
 condit = [klac,Hc,klac2,Hc2,tr,zs,N,ns,ug,ul,dl,eg,el,cgi,c2gi,Area,Qmedia,D];
 
 % Set uptake parameters
-vcm = 100;  
-Kmc = 5.5;
-Kic = 0.5;  
+vcm = 40; %35  
+Kmc = 0.4; %0.2
+Kic = 2.2; %1.6
 param = [
      vcm                 % maximum CO uptake rate, mmol/g/h; 
      Kmc                 % CO uptake saturation constant, mmol/L;
@@ -118,7 +118,7 @@ size(yo)
 yo = [yo, xk(nsvar+1),xk(nsvar+2),xk(nsvar+3)];
 
 
-[T,X] = ode15s(@(T,X) bcr_model_simulated(T,X,condit,param),tspan,yo); 
+[T,X] = ode15s(@(T,X) bcr_model(T,X,condit,param),tspan,yo); 
 % zn = linspace(0,L,N)
 
 xkplusone = X(end,:);
